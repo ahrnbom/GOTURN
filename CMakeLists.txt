@@ -21,7 +21,7 @@ include_directories(${CUDA_INCLUDE_DIRS})
 
 find_package(Caffe REQUIRED)
 include_directories(${Caffe_INCLUDE_DIRS})
-add_definitions(${Caffe_DEFINITIONS})    # ex. -DCPU_ONLY
+add_definitions(${Caffe_DEFINITIONS} -DCPU_ONLY)    # ex. -DCPU_ONLY
 message("Caffe_DIR is ${Caffe_DIR}")	#specify Caffe_DIR in /cmake/Modules/FindCaffe.cmake
 # Note: If can't find Caffe, please uncomment the below line and set the path manually
 # set(Caffe_DIR /path_to_caffe/build/install)
