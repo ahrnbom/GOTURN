@@ -112,4 +112,7 @@ add_executable (show_alov src/visualizer/show_alov.cpp)
 target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS} ${Boost_LIBRARIES})
 target_link_libraries (show_alov ${PROJECT_NAME})
 
+add_executable (test_on_stuff src/test/test_on_stuff.cpp)
+target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS} ${Caffe_LIBRARIES})
+target_link_libraries (test_on_stuff ${PROJECT_NAME})
 

@@ -4,6 +4,8 @@
 
 #include <opencv/cv.h>
 
+using std::string;
+
 int main (int argc, char *argv[]) {
   if (argc < 3) {
     std::cerr << "Usage: " << argv[0]
@@ -26,7 +28,7 @@ int main (int argc, char *argv[]) {
   const bool show_intermediate_output = false;
   Tracker tracker(show_intermediate_output);
   
-  cv::Mat im_curr = cv::imread(image_folder + "/001.jpg");
+  const cv::Mat& im_curr = cv::imread(image_folder + "/001.jpg");
   
   std::vector<float> bbox_poss;
   bbox_poss.push_back(233.0f);
