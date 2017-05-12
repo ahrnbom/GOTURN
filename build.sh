@@ -1,4 +1,4 @@
-if [ -d build] ; then
+if [ -d build ] ; then
 echo "Build path already exists."
 else
 mkdir build

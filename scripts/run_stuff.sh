@@ -1,3 +1,6 @@
+./build.sh
+sleep 5
+
 DEPLOY=nets/tracker.prototxt
 CAFFE_MODEL=nets/models/pretrained_model/tracker.caffemodel
 
