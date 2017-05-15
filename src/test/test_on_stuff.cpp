@@ -4,6 +4,9 @@
 
 #include <opencv/cv.h>
 
+#include <iomanip>
+#include <sstream>
+#include <string>
 using std::string;
 
 int main (int argc, char *argv[]) {
@@ -38,6 +41,21 @@ int main (int argc, char *argv[]) {
   BoundingBox bbox_gt(bbox_poss);
   
   tracker.Init(im_curr, bbox_gt, &regressor); 
+  
+  const int n = 168;
+  for (int i = 0; i != n; ++i) {
+    int i2 = i+1;
+    std::ostringstream ss;
+    ss << std::setw( 3 ) << std::setfill( '0' ) << i2;
+    const string path = image_folder + "/" + ss.str() + ".jpg";
+    const cv::Mat& image = cv::imread(path);
+    BoundingBox bbox_estimate;
+    tracker.Track(image, &regressor, &bbox_estimate);
+    
+    std::cout << path << std::endl;
+    bbox_estimate.Print();
+  }
+  
   
   std::cout << "huge success" << std::endl;
 }
