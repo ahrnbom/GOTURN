@@ -57,6 +57,7 @@ int main (int argc, char *argv[]) {
   while (std::getline(images_file, line)) {
     images.push_back(line);
   }
+  images_file.close();
   
   std::cout << "According to images.txt, there are " << images.size() << " images." << std::endl;
 
@@ -71,9 +72,16 @@ int main (int argc, char *argv[]) {
     TrackStart ts(limname, x1, y1, x2, y2);
     track_starts.push_back(ts);
   } 
-
-  for (std::vector<TrackStart>::iterator it = track_starts.begin(); it != track_starts.end(); ++it) {
+  boxes_file.close();
   
+  int inum = 0;
+  for (std::vector<TrackStart>::iterator it = track_starts.begin(); it != track_starts.end(); ++it) {
+    ++inum;
+    std::ofstream out;
+    std::ostringstream nss;
+    nss << image_folder << "/out" << inum << ".txt";
+    out.open(nss.str().c_str());
+    
     std::vector<string>::iterator imit = images.begin();
     while (*imit != it->imname) ++imit;
     
@@ -92,12 +100,13 @@ int main (int argc, char *argv[]) {
 
         const string path = image_folder + "/" + *imit;
         const cv::Mat& image = cv::imread(path);
-        BoundingBox bbox_estimate;
-        tracker.Track(image, &regressor, &bbox_estimate);
-
+        BoundingBox bbox;
+        tracker.Track(image, &regressor, &bbox);
         std::cout << path << std::endl;
-        bbox_estimate.Print();
+        out << path << std::endl;
+        out << bbox.x1_ << " " << bbox.y1_ << " " << bbox.x2_ << " " << bbox.y2_ << std::endl;
     }
+    out.close();
   }
   
   std::cout << "huge success" << std::endl;
